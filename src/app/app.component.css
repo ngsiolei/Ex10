@@ -1,0 +1,68 @@
+.container {
+  font-family: monospace;
+  font-size: 16px;
+  line-height: 1.25em;
+  margin: 10px auto 30px;
+  max-width: 750px;
+}
+.h1 {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.25em;
+}
+.loading-content {
+  padding: 10px;
+}
+.err-content {
+  font-size: 20px;
+  color: #999;
+  padding: 10px;
+}
+.form-group {
+  margin-top: 30px;
+}
+.form-group label {
+  display: inline-block;
+  margin: 0 10px;
+}
+.form-control {
+  border: 1px solid #ccc;
+  font-family: monospace;
+  font-size: 16px;
+  line-height: 1.25em;
+  padding: 6px;
+}
+.list {
+  margin: 30px 0;
+  max-width: 540px;
+  padding: 0;
+}
+.list-item-header,
+.list-item {
+  list-style-type: none;
+  padding: 10px;
+}
+.list-item-header {
+  border-bottom: 4px solid #ccc;
+  font-weight: bold;
+}
+.list-item {
+  border-bottom: 1px solid #ccc;
+}
+.block-name,
+.block-car,
+.block-mb {
+  display: inline-block;
+  vertical-align: top;
+}
+.block-name {
+  width: 100px;
+}
+.block-car {
+  text-align: right;
+  width: 80px;
+}
+.block-mb {
+  text-align: right;
+  width: 80px;
+}

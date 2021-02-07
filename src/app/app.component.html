@@ -1,0 +1,32 @@
+<div class="container">
+  <h1 class="h1">澳門公共停車場剩餘車位資訊</h1>
+  <form>
+    <div class="form-group">
+      <label>搜尋:</label>
+      <input
+        type="search"
+        class="form-control"
+        placeholder="輸入停車場名稱搜尋"
+        [formControl]="searchField"
+      />
+    </div>
+  </form>
+  <div>
+    <p class="loading-content" *ngIf="loading">下載中...</p>
+  </div>
+  <div>
+    <p class="err-content" *ngIf="hasError">{{ errMsg }}</p>
+  </div>
+  <ul class="list" *ngIf="!hasError">
+    <li class="list-item-header">
+      <span class="block-name">停車場</span>
+      <span class="block-car">汽車</span>
+      <span class="block-mb">電單車</span>
+    </li>
+    <li class="list-item" *ngFor="let item of results | async">
+      <span class="block-name">{{ item.nameCht }}</span>
+      <span class="block-car">{{ item.car }}</span>
+      <span class="block-mb">{{ '' === item.mb ? '---' : item.mb  }}</span>
+    </li>
+  </ul>
+</div>
