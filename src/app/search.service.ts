@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, pipe, bindNodeCallback } from 'rxjs';
-import { map, filter, tap, switchMap, catchError } from 'rxjs/operators';
+import { Observable, of, bindNodeCallback } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { parseString } from 'xml2js';
 import env from './env.json';
 
@@ -31,9 +31,9 @@ export class SearchService {
 
   constructor(private http: HttpClient) {}
 
-  fetchIfNeeded() {
+  private fetchIfNeeded(): Observable<SearchItem[]> {
     if (
-      null !== this.cache.updatedAt &&
+      0 !== this.cache.updatedAt &&
       Date.now() - this.cache.updatedAt < env.cacheLifetime
     ) {
       return of(this.cache.items);
@@ -41,7 +41,7 @@ export class SearchService {
     return this.http
       .get(env.apiUrl, { headers: this.headers, responseType: 'text' })
       .pipe(
-        switchMap(raw => {
+        switchMap((raw: string) => {
           return bindNodeCallback(parseString)(raw);
         }),
         map((res: any) => {

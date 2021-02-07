@@ -25,32 +25,29 @@ export class AppComponent {
   constructor(private searchService: SearchService) {}
 
   ngOnInit() {
-    this.searchService.search('').subscribe(
-      x => {
-        this.results = of(x);
-      },
-      err => {
-        this.hasError = true;
-        this.errMsg = err;
-      }
-    );
     this.searchField.valueChanges
       .pipe(
         debounceTime(400),
         distinctUntilChanged(),
-        tap(() => (this.loading = true)),
+        tap(() => {
+          this.loading = true;
+        }),
         switchMap(term => this.searchService.search(term)),
-        tap(() => (this.loading = false))
+        tap(() => {
+          this.loading = false;
+        })
       )
       .subscribe(
-        x => {
-          console.log('debug');
+        (x: any) => {
           this.results = of(x);
+          this.hasError = false;
+          this.errMsg = '';
         },
-        err => {
+        (err: any) => {
           this.hasError = true;
           this.errMsg = err;
         }
       );
+    this.searchField.setValue('');
   }
 }
