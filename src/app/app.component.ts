@@ -15,7 +15,7 @@ import { SearchService, SearchItem } from './search.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Ex10';
+  title: string = 'Ex10';
   loading: boolean = false;
   results: Observable<SearchItem[]> = of([]);
   searchField: FormControl = new FormControl();
@@ -32,22 +32,23 @@ export class AppComponent {
         tap(() => {
           this.loading = true;
         }),
-        switchMap(term => this.searchService.search(term)),
-        tap(() => {
-          this.loading = false;
+        switchMap((term: string) => {
+          return this.searchService.search(term);
         })
       )
-      .subscribe(
-        (x: any) => {
+      .subscribe({
+        next: (x: any) => {
           this.results = of(x);
           this.hasError = false;
           this.errMsg = '';
+          this.loading = false;
         },
-        (err: any) => {
+        error: (err: any) => {
           this.hasError = true;
           this.errMsg = err;
-        }
-      );
+          this.loading = false;
+        },
+      });
     this.searchField.setValue('');
   }
 }

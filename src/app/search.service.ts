@@ -69,15 +69,16 @@ export class SearchService {
 
   search(term: string): Observable<SearchItem[]> {
     return this.fetchIfNeeded().pipe(
-      map(items => {
-        return items.filter((x: any) => {
+      map((items: SearchItem[]) => {
+        return items.filter((item: SearchItem) => {
           const termTrimmed = term.replace(/(^\s+)|(\s+$)/g, '');
           if (termTrimmed) {
             return (
-              -1 !== x.nameCht.indexOf(termTrimmed) && '0' === x.inMaintenance
+              -1 !== item.nameCht.indexOf(termTrimmed) &&
+              '0' === item.inMaintenance
             );
           }
-          return '0' === x.inMaintenance;
+          return '0' === item.inMaintenance;
         });
       })
     );
