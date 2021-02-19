@@ -19,14 +19,56 @@
   </div>
   <ul class="list" *ngIf="!hasError">
     <li class="list-item-header">
-      <span class="block-name">停車場</span>
-      <span class="block-car">汽車</span>
-      <span class="block-mb">電單車</span>
+      <span class="block-name">
+        <button
+          class="btn-name"
+          (click)="sortByName()"
+          [ngClass]="
+            'name_asc' === sortParam
+              ? 'asc'
+              : 'name_desc' === sortParam
+              ? 'desc'
+              : ''
+          "
+        >
+          停車場
+        </button>
+      </span>
+      <span class="block-car">
+        <button
+          class="btn-car"
+          (click)="sortByCar()"
+          [ngClass]="
+            'car_asc' === sortParam
+              ? 'asc'
+              : 'car_desc' === sortParam
+              ? 'desc'
+              : ''
+          "
+        >
+          汽車
+        </button>
+      </span>
+      <span class="block-mb">
+        <button
+          class="btn-mb"
+          (click)="sortByMb()"
+          [ngClass]="
+            'mb_asc' === sortParam
+              ? 'asc'
+              : 'mb_desc' === sortParam
+              ? 'desc'
+              : ''
+          "
+        >
+          電單車
+        </button>
+      </span>
     </li>
     <li class="list-item" *ngFor="let item of results | async">
       <span class="block-name">{{ item.nameCht }}</span>
       <span class="block-car">{{ item.car }}</span>
-      <span class="block-mb">{{ '' === item.mb ? '---' : item.mb  }}</span>
+      <span class="block-mb">{{ '' === item.mb ? '---' : item.mb }}</span>
     </li>
   </ul>
 </div>

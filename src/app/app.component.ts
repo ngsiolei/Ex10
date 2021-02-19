@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import {
   debounceTime,
   distinctUntilChanged,
+  startWith,
   switchMap,
   tap,
 } from 'rxjs/operators';
@@ -21,19 +22,26 @@ export class AppComponent {
   searchField: FormControl = new FormControl();
   hasError: boolean = false;
   errMsg: string = '';
+  sortSubject: BehaviorSubject<string> = new BehaviorSubject('');
+  sortParam: string = 'name_asc';
 
   constructor(private searchService: SearchService) {}
 
   ngOnInit() {
-    this.searchField.valueChanges
-      .pipe(
+    combineLatest(
+      this.searchField.valueChanges.pipe(
+        startWith(''),
         debounceTime(400),
-        distinctUntilChanged(),
+        distinctUntilChanged()
+      ),
+      this.sortSubject
+    )
+      .pipe(
         tap(() => {
           this.loading = true;
         }),
-        switchMap((term: string) => {
-          return this.searchService.search(term);
+        switchMap(([term, sort]) => {
+          return this.searchService.search(term, sort);
         })
       )
       .subscribe({
@@ -49,6 +57,27 @@ export class AppComponent {
           this.loading = false;
         },
       });
-    this.searchField.setValue('');
+  }
+
+  private sort(sortKey: 'name' | 'car' | 'mb') {
+    const key = this.sortParam.split('_')[0];
+    const order = this.sortParam.split('_')[1];
+    this.sortParam = [
+      sortKey,
+      sortKey !== key ? 'desc' : 'asc' === order ? 'desc' : 'asc',
+    ].join('_');
+    this.sortSubject.next(this.sortParam);
+  }
+
+  sortByName() {
+    this.sort('name');
+  }
+
+  sortByCar() {
+    this.sort('car');
+  }
+
+  sortByMb() {
+    this.sort('mb');
   }
 }
