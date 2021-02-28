@@ -55,17 +55,25 @@
 .block-car,
 .block-mb {
   display: inline-block;
-  vertical-align: top;
+  line-height: 24px;
 }
 .block-name {
   width: 100px;
 }
+.block-name small {
+  color: #999;
+  display: inline-block;
+  line-height: 22px;
+  margin-top: 4px;
+}
 .block-car {
   text-align: right;
+  vertical-align: top;
   width: 80px;
 }
 .block-mb {
   text-align: right;
+  vertical-align: top;
   width: 80px;
 }
 .btn-name {
