@@ -1,4 +1,6 @@
 .container {
+  background-color: #fff;
+  color: #222;
   font-family: monospace;
   font-size: 16px;
   line-height: 1.25em;
@@ -26,6 +28,7 @@
   margin: 0 10px;
 }
 .form-control {
+  background-color: #fff;
   border: 2px solid #ccc;
   border-radius: 2px;
   font-family: monospace;
@@ -80,6 +83,7 @@
   background-color: transparent;
   border: 0;
   border-bottom: 2px dotted #999;
+  color: #222;
   display: block;
   font-size: 16px;
   padding: 2px 0;
@@ -90,6 +94,7 @@
   background-color: transparent;
   border: 0;
   border-bottom: 2px dotted #999;
+  color: #222;
   font-size: 16px;
   padding: 2px 0;
   text-align: right;
