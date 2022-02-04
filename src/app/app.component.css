@@ -16,8 +16,8 @@
   padding: 10px;
 }
 .err-content {
-  font-size: 20px;
   color: #999;
+  font-size: 20px;
   padding: 10px;
 }
 .form-group {
@@ -102,8 +102,8 @@
 .btn-name:hover,
 .btn-car:hover,
 .btn-mb:hover {
-  cursor: pointer;
   border-bottom: 2px solid #999;
+  cursor: pointer;
 }
 .btn-name.desc:after {
   content: " \2193";
