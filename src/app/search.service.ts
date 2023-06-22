@@ -49,7 +49,7 @@ export class SearchService {
       .get(env.apiMetaUrl, { headers: this.headers, responseType: 'text' })
       .pipe(
         switchMap((raw: string) => {
-          return bindNodeCallback(parseString)(raw);
+          return bindNodeCallback(parseString)(raw, {});
         }),
         map((res: any) => {
           const items = res.CarPark.Car_park_info.reduce(
@@ -86,7 +86,7 @@ export class SearchService {
         .get(env.apiLotsUrl, { headers: this.headers, responseType: 'text' })
         .pipe(
           switchMap((raw: string) => {
-            return bindNodeCallback(parseString)(raw);
+            return bindNodeCallback(parseString)(raw, {});
           })
         )
     ).pipe(
@@ -128,7 +128,7 @@ export class SearchService {
     const param: { sortKey: string; sortOrder: number } =
       sortParam && -1 !== Object.keys(opts).indexOf(sortParam)
         ? opts[sortParam]
-        : opts.name_asc;
+        : opts['name_asc'];
     if ('nameCht' !== param.sortKey) {
       return (a: SearchItem, b: SearchItem) => {
         const aKey: number = parseInt(a[param.sortKey as 'car' | 'mb'], 10);
